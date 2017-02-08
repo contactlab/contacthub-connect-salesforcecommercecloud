@@ -3,27 +3,25 @@ importClass(dw.web.Resource);
 
 
 let logger: Log = Logger.getLogger('ContactLabHub', '');
-let sitePrefs: SitePreferences;
+let sitePrefs: SitePreferences = Site.getCurrent().getPreferences();
+let orgPrefs : OrganizationPreferences = System.getPreferences();
 
-function getSitePreferences() : SitePreferences {
-	let sites : dw.util.Iterator = Site.getAllSites().iterator();
-	let site : Site;
-	while (sites.hasNext()) {
-		site = sites.next();
-		if (site.getName().indexOf('SiteGenesis') > -1) {
-			break;
-		}
+function getPreference(name: String) : String {
+	if (name in sitePrefs.getCustom()) {
+		return sitePrefs.getCustom()[name];
 	}
-	return site.getPreferences();
+	if (name in orgPrefs.getCustom()) {
+		return orgPrefs.getCustom()[name];
+	}
+	return '';
 }
 
-sitePrefs = getSitePreferences();
-let token: String = sitePrefs.getCustom()['ContactLabHubToken'];
-let tokenJs = sitePrefs.getCustom()['ContactLabHubTokenJs'];
-let baseUrl: String = sitePrefs.getCustom()['ContactLabHubURL'];
-let workspace: String = sitePrefs.getCustom()['ContactLabHubWorkspace'];
-let nodeId: String = sitePrefs.getCustom()['ContactLabHubNode'];
-let baseCartridge : String = sitePrefs.getCustom()['BaseCartridge'];
+let token: String = getPreference('ContactLabHubToken');
+let tokenJs = getPreference('ContactLabHubTokenJs');
+let baseUrl: String = getPreference('ContactLabHubURL');
+let workspace: String = getPreference('ContactLabHubWorkspace');
+let nodeId: String = getPreference('ContactLabHubNode');
+let baseCartridge : String = getPreference('BaseCartridge');
 
 
 exports.getWorkspace = function() : String {
