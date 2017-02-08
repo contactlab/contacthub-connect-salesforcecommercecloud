@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns="http://www.demandware.com/xml/impex/preferences/2007-03-31">
+    <custom-preferences>
+        <all-instances/>
+        <development>
+            <preference preference-id="ContactLabHubNode"></preference>
+            <preference preference-id="ContactLabHubToken"></preference>
+            <preference preference-id="ContactLabHubTokenJs"></preference>
+            <preference preference-id="ContactLabHubURL">https://api.contactlab.it/hub/v1/workspaces/</preference>
+            <preference preference-id="ContactLabHubWorkspace"></preference>
+            <preference preference-id="BaseCartridge">app_storefront_controllers</preference>
+        </development>
+        <staging/>
+        <production/>
+    </custom-preferences>
+</preferences>

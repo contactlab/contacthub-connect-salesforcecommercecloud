@@ -1,0 +1,13 @@
+<isscript>
+    let cl_utils = require('contacthub_cartridge/cartridge/scripts/utils/utils');
+    let chId = customer.getProfile() == null ? null : customer.getProfile().custom.chId;
+</isscript>
+<span id="cl_hub"
+    data-token="${cl_utils.getTokenJs()}"
+    data-node="${cl_utils.getNodeId()}"
+    data-url="${cl_utils.getUrl()}"
+    data-customer="${customer.getID()}"
+    data-authenticated="${customer.isAuthenticated()}"
+    data-customer-ch="${chId}">
+</span>
+<script src="${URLUtils.staticURL('/js/cl_hub.js')}" type="text/javascript"></script>

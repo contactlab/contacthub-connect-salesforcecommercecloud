@@ -1,0 +1,126 @@
+'use strict';
+
+let Transaction : dw.system.Transaction = require('dw/system/Transaction');
+let Hub = require('~/cartridge/scripts/hub');
+let PostCustomer = require('~/cartridge/scripts/models/PostCustomer');
+let BaseProperty = require('~/cartridge/scripts/models/BaseProperty');
+let utils = require('~/cartridge/scripts/utils/utils');
+let CustomerModel = require(utils.getBaseCartridge() + '/cartridge/scripts/models/CustomerModel');
+
+
+function sendCustomerByEmail(email : String): dw.svc.Result {
+	let customer : dw.customer.Customer = CustomerModel.retrieveCustomerByLogin(email);
+	return sendCustomer(customer);
+}
+
+function sendCustomer(customer : dw.customer.Customer) : dw.svc.Result {
+	let postCustomer = buildPostCustomerFromProfile(customer.getProfile());
+	let result : dw.svc.Result = Hub.postCustomer(postCustomer);
+	utils.getLogger().debug(
+	    'Send customer to ContactHub returned status {0}, object {1}, error {2}',
+        result.getStatus(),
+        JSON.stringify(result.getObject()),
+        JSON.stringify(result.getErrorMessage()));
+	if (result.isOk()) {
+		let chId = JSON.parse(result.getObject()).id;
+	    updateFieldsForCustomer(customer, {chId: chId});
+	} else if (result.getError() == 409) {
+		let chId = JSON.parse(result.getErrorMessage()).data.customer.id;
+		let patchCustomer = buildPatchCustomerFromPost(postCustomer);
+		result = Hub.patchCustomer(chId, patchCustomer);
+		updateFieldsForCustomer(customer, {chId: chId});
+	}
+	return result;
+}
+
+function buildPostCustomerFromProfile(profile : dw.customer.Profile) {
+	let baseProperty = buildBaseProperty(profile);
+	let postCustomer = new PostCustomer(baseProperty);
+	postCustomer.nodeId = utils.getNodeId();
+	return postCustomer;
+}
+
+function buildBaseProperty(profile : dw.customer.Profile) {
+	let baseProperty = new BaseProperty(profile.getEmail(), profile.getFirstName(), profile.getLastName());
+	return baseProperty;
+}
+
+function buildPatchCustomerFromPost(postCustomer) {
+	delete postCustomer.nodeId;
+	return postCustomer;
+}
+
+function updateFieldsForCustomer(customer : dw.customer.Customer, customAttributes : Object) : void {
+	if (customer != null) {
+		updateFieldsForProfile(customer.getProfile(), customAttributes);
+	}
+}
+
+function updateFieldsForProfile(profile : dw.customer.Profile, customAttributes : Object) : void {
+	if (profile != null) {
+		customAttributes = customAttributes || {};
+		Transaction.wrap(function() {
+			for (let i in customAttributes) {
+				if (customAttributes.hasOwnProperty(i)) {
+					profile.custom[i] = customAttributes[i];
+				}
+			}
+			profile.custom.chLastSyncDate = new Date();
+		});
+	}
+}
+
+function relateSessionId(chId : String, dwId : String) : dw.svc.Result {
+	let result : dw.svc.Result = Hub.postSubscription({
+		id: chId,
+		value: dwId
+	});
+	utils.getLogger().debug('Relate session: {0}', JSON.stringify(result.getObject()));
+	return result;
+}
+
+function sendSubscription(subscription : dw.object.CustomObject) : dw.svc.Result {
+	let postSubscription = buildPostSubscription(subscription);
+	let result : dw.svc.Result = Hub.postSubscription(postSubscription.subscriberId, postSubscription);
+	return result;
+}
+
+function buildPostSubscription(subscription : dw.object.CustomObject) {
+	let PostSubscription = require('~/cartridge/scripts/models/PostSubscription');
+	let postSubscription = new PostSubscription();
+	postSubscription.id = subscription.getUUID();
+	postSubscription.name = subscription.getCustom().subscriptionName;
+	postSubscription.type = subscription.getCustom().type;
+	postSubscription.subscriberId = subscription.getCustom().customerId;
+	postSubscription.registeredAt = subscription.getCreationDate();
+	postSubscription.updatedAt = subscription.getLastModified();
+	return postSubscription;
+}
+
+function syncAllCustomers() : void {
+	let CustomerMgr : dw.customer.CustomerMgr = require('dw/customer/CustomerMgr');
+	let lastDate : Date = new Date();
+	CustomerMgr.processProfiles(syncProfile, "lastModified <= {0}", lastDate);
+}
+
+function syncProfile(profile : dw.customer.Profile) : void {
+	let condition : Boolean = profile.custom.chLastSyncDate == null
+	    || (profile.getLastModified().getTime() >= profile.custom.chLastSyncDate.getTime());
+	if (condition) {
+	    let postCustomer = buildPostCustomerFromProfile(profile);
+	    let patchCustomer = buildPatchCustomerFromPost(postCustomer);
+	    let result : dw.svc.Result = Hub.patchCustomer(profile.custom.chId, patchCustomer);
+	    updateFieldsForProfile(profile, {chId: profile.custom.chId});
+	}
+}
+
+
+exports.relateSessionId = relateSessionId;
+
+exports.sendCustomerByEmail = sendCustomerByEmail;
+
+exports.sendCustomer = sendCustomer;
+
+exports.sendSubscription = sendSubscription;
+
+exports.syncAllCustomers = syncAllCustomers;

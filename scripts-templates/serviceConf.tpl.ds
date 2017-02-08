@@ -1,0 +1,5 @@
+configureService('<%- serviceName %>',
+    function(service: HTTPService, args : Object) {
+        return JSON.stringify(args);
+    }
+);

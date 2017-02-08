@@ -1,0 +1,33 @@
+importPackage(dw.svc);
+importPackage(dw.net);
+importPackage(dw.io);
+
+
+let utils = require('~/cartridge/scripts/utils/utils');
+
+
+function configureService(name: String, createcb) {
+    ServiceRegistry.configure(name, {
+        createRequest: function(service: HTTPService, args : Object) : String {
+            service.addHeader('Authorization', 'Bearer ' + utils.getToken());
+            if (service.getRequestMethod() === 'GET') {
+            	service.addParam('nodeId', utils.getNodeId());
+            } else if (['POST', 'PUT', 'PATCH'].indexOf(service.getRequestMethod()) > -1) {
+            	service.addHeader('Content-Type', 'application/json');
+            }
+            let body = JSON.stringify(args);
+            let result = createcb ? createcb(service, args) : body;
+            return result;
+        },
+        parseResponse: function(service: HTTPService, client: HTTPClient) : String {
+            return client.text;
+        },
+        mockCall: function(service: HTTPService, client: HTTPClient) : Object {
+            return {
+                statusCode: 200,
+                statusMessage: "Success",
+                text: "MOCK RESPONSE (" + service.getURL() + ")"
+            };
+        }
+    });
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<form>
+    <field formid="fname" label="contactus.firstname.label" type="string" mandatory="true" binding="custom.firstName" max-length="50"/>
+    <field formid="lname" label="contactus.lastname.label" type="string" mandatory="true" binding="custom.lastName" max-length="50"/>
+    <field formid="email" label="contactus.email.label" type="string" mandatory="true" 
+    	regexp="^[\w-\.]{1,}\@([\da-zA-Z-]{1,}\.){1,}[\da-zA-Z-]{2,6}$" 
+    	parse-error="newsletter.email.parse-error" 
+    	value-error="newsletter.email.value-error" 
+    	binding="custom.email" 
+    	max-length="50"/>
+    <field formid="type" type="string" binding="custom.type" default-value="sitegenesistype" />
+    <field formid="subscriptionName" type="string" binding="custom.subscriptionName" default-value="sitegenesisSubscriptionName" />
+	
+	<action formid="subscribe" valid-form="true"/>
+</form>

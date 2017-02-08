@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="ContactLabHubNode">
+                <display-name xml:lang="x-default">ContactLab Hub Node</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="ContactLabHubToken">
+                <display-name xml:lang="x-default">ContactLab Hub Authorization Token</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="ContactLabHubTokenJs">
+                <display-name xml:lang="x-default">ContactLab Hub Authorization Token (SFCC - Untrusted)</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="ContactLabHubURL">
+                <display-name xml:lang="x-default">ContactLab Hub Base URL</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>https://api.contactlab.it/hub/v1/workspaces/</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="ContactLabHubWorkspace">
+                <display-name xml:lang="x-default">ContactLab Hub Workspace</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="BaseCartridge">
+                <display-name xml:lang="x-default">Base Cartridge</display-name>
+                <description xml:lang="x-default">Cartridge that contains the Account controller</description>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>app_storefront_controllers</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="EnableJs">
+                <display-name xml:lang="x-default">Enable JavaScript Events</display-name>
+                <description xml:lang="x-default"></description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>true</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="ContactLabHubConfigs">
+                <display-name xml:lang="x-default">ContactLab Hub Configurations</display-name>
+                <attribute attribute-id="ContactLabHubURL"/>
+                <attribute attribute-id="ContactLabHubTokenJs"/>
+                <attribute attribute-id="ContactLabHubWorkspace"/>
+                <attribute attribute-id="ContactLabHubNode"/>
+                <attribute attribute-id="BaseCartridge"/>
+                <attribute attribute-id="EnableJs"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+</metadata>

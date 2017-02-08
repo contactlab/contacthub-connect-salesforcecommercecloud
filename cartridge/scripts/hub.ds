@@ -1,0 +1,76 @@
+importPackage(dw.system);
+importPackage(dw.svc);
+
+
+let utils = require('~/cartridge/scripts/utils/utils');
+let logger: Log = utils.getLogger();
+let CHRequest = require('~/cartridge/scripts/utils/CHRequest');
+
+
+function configureService(serviceName : String) {
+  var newReq = new CHRequest();
+  return newReq.configureService(serviceName);
+}
+
+function configureAndCallService(serviceName : String, obj : Object) : Result {
+  let result : Result;
+  try {
+    result = configureService(serviceName).call(obj);
+  } catch (e) {
+    logger.error('Service ' + serviceName + ' failed: ' + e.message);
+  }
+
+  return result;
+}
+
+function getCustomers() : Result {
+  let serviceName: String = "contactlab_hub.http.customers.get";
+  return configureAndCallService(serviceName);
+}
+
+function postCustomer(postCustomer) : Result {
+  let serviceName : String = "contactlab_hub.http.customers.post";
+  let customerResult : Result = configureAndCallService(serviceName, postCustomer);
+  if (customerResult != null && customerResult.getObject() != null) {
+    serviceName = "contactlab_hub.http.customerssessions.post";
+    configureService(serviceName).setUrlParameters({id: customerResult.getObject().id})
+      .call({value: postCustomer.externalId});
+  }
+  return customerResult;
+}
+
+function patchCustomer(chId, postCustomer) : Result {
+  let serviceName : String = "contactlab_hub.http.customers.patch";
+  let service = configureService(serviceName);
+  service.setUrl(service.getUrl() + '/' + chId);
+  return service.call(postCustomer);
+}
+
+function postSession(postSession : Object) : Result {
+  let serviceName : String = "contactlab_hub.http.customerssessions.post";
+  return configureService(serviceName).setUrlParameters({id: postSession.id})
+      .call(postSession);
+}
+
+function postSubscription(customerId : String, postSubscription) : Result {
+	let serviceName : String = 'contactlab_hub.http.customerssubscriptions.post';
+	let result : Result = configureService(serviceName).setUrlParameters({id: customerId})
+      .call(postSubscription);
+    return result;
+}
+
+function postEvent(postEvent) : Result {
+  let serviceName : String = "contactlab_hub.http.events.post";
+  return configureAndCallService(serviceName, postEvent);
+}
+
+
+exports.getCustomers = getCustomers;
+
+exports.postCustomer = postCustomer;
+
+exports.patchCustomer = patchCustomer;
+
+exports.postEvent = postEvent;
+
+exports.postSubscription = postSubscription;

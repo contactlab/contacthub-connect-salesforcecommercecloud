@@ -1,0 +1,67 @@
+importPackage(dw.system);
+importClass(dw.web.Resource);
+
+
+let logger: Log = Logger.getLogger('ContactLabHub', '');
+let sitePrefs: SitePreferences;
+
+function getSitePreferences() : SitePreferences {
+	let sites : dw.util.Iterator = Site.getAllSites().iterator();
+	let site : Site;
+	while (sites.hasNext()) {
+		site = sites.next();
+		if (site.getName().indexOf('SiteGenesis') > -1) {
+			break;
+		}
+	}
+	return site.getPreferences();
+}
+
+sitePrefs = getSitePreferences();
+let token: String = sitePrefs.getCustom()['ContactLabHubToken'];
+let tokenJs = sitePrefs.getCustom()['ContactLabHubTokenJs'];
+let baseUrl: String = sitePrefs.getCustom()['ContactLabHubURL'];
+let workspace: String = sitePrefs.getCustom()['ContactLabHubWorkspace'];
+let nodeId: String = sitePrefs.getCustom()['ContactLabHubNode'];
+let baseCartridge : String = sitePrefs.getCustom()['BaseCartridge'];
+
+
+exports.getWorkspace = function() : String {
+	return workspace;
+};
+
+exports.getLogger = function() : Log {
+	return logger;
+};
+
+exports.getToken = function() : String {
+    return tokenJs;
+};
+
+exports.getTokenJs = function() : String {
+    return tokenJs;
+};
+
+exports.getBaseUrl = function() : String {
+    return baseUrl;
+};
+
+exports.getNodeId = function() : String {
+	return nodeId;
+};
+
+exports.getUrl = function() : String {
+    return this.getBaseUrl() + this.getWorkspace();
+};
+
+exports.getUrlByMethod = function(method : String) : String {
+    let path = Resource.msg('api.method.' + method, 'cl_hub', null);
+    if (!path) {
+        throw new Error('Unknown API method \"' + method + '\"');
+    }
+    return this.getUrl() + path;
+};
+
+exports.getBaseCartridge = function() : String {
+	return baseCartridge;
+};

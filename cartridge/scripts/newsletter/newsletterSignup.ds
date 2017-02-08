@@ -1,0 +1,48 @@
+/**
+* This script creates a NewsletterSubscription instance and initializes
+* it with parameters from the pipeline dictionary.
+* Note: the key for the custom object must be unique.
+*
+*   @input firstName : String
+*   @input lastName : String
+*   @input email : String
+*   @input thisCustomer : dw.customer.Customer
+*   @input subscriptionName : String
+*   @input type : String
+*   @output subscription: Object
+*/
+importPackage( dw.system );
+importPackage( dw.object );
+
+let utils = require('~/cartridge/scripts/utils/utils');
+let logger: Log = utils.getLogger();
+let customers = require('~/cartridge/scripts/customers');
+
+function execute( args : PipelineDictionary ) : Number
+{
+	try {
+	    let c : dw.customer.Customer = args.thisCustomer || customer;
+	    if (c === null || c.profile === null) {
+	    	let CustomerModel = require(utils.getBaseCartridge() + '/cartridge/scripts/models/CustomerModel');
+	    	c = CustomerModel.retrieveCustomerByLogin(args.email);
+	    }
+	    if (c !== null && c.profile !== null) {
+	    let subscription : CustomObject = CustomObjectMgr.createCustomObject("NewsletterSubscription", args.email);
+	    subscription.custom.firstName = args.firstName;
+	    subscription.custom.lastName = args.lastName;
+    	    subscription.custom.customerId = c.profile.custom.chId;
+	        subscription.custom.subscriptionName = args.subscriptionName;
+	        subscription.custom.type = args.type;
+	    
+    	    customers.sendSubscription(subscription);
+	    
+	        args.subscription = subscription;
+	    	   
+	    	return PIPELET_NEXT;
+	    }
+	    return PIPELET_ERROR;
+	} catch (e) {	
+		logger.error("Failed to create a newsletter subscription for the email address {0}: {1}", args.email, e.message);
+		return PIPELET_ERROR;
+	} 
+}
