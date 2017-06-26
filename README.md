@@ -38,15 +38,15 @@ To install the plug-in, complete the steps as described below.
 
 Do the following:  
 
-- Open Demandware Studio.  
+- Open Demandware Studio  
 
-- Click **File** > **Import** > **General** > **Existing Projects Into Workspace**.  
+- Click **File** > **Import** > **General** > **Existing Projects Into Workspace**  
 
-- Browse to the **contacthub_cartridge** folder.  
+- Browse to the **contacthub_cartridge** folder  
 
-- Click **Finish**.  
+- Click **Finish**  
 
-- When prompted, click **OK** to link the cartridge to your sandbox.  
+- When prompted, click **OK** to link the cartridge to your sandbox  
 
 <a name="AddingCartridgeToPath"/>
 
@@ -54,19 +54,19 @@ Do the following:
 
 Do the following:  
 
-- Log in to the **Business Manager**.  
+- Log in to the **Business Manager**  
 
-- Select your site in the **Administration** > **Sites** > **Manage Sites** menu.  
+- Select your site in the **Administration** > **Sites** > **Manage Sites** menu  
 
-- Select the **Settings** tab.  
+- Select the **Settings** tab  
 
-- Add **contacthub_cartridge:** to the **Cartridges** field.  
+- Add **contacthub_cartridge:** to the **Cartridges** field  
 
 ![Cartridges Field](image/CartridgesField.png)  
 
 **The Cartridges field with contacthub_cartridge: added**  
 
-- Click **Apply**.  
+- Click **Apply**  
 
 <a name="ImportingTogether"/>
 
@@ -74,17 +74,17 @@ Do the following:
 
 Do the following:  
 
-- In the **Business Manager**, click **Administration** > **Site Development** > **Site Import & Export**.  
+- In the **Business Manager**, click **Administration** > **Site Development** > **Site Import & Export**  
 
-- In the **Import** panel, click **Choose file** and **upload** the **site-import.zip** that is included in the cartridge.  
+- In the **Import** panel, click **Choose file** and **upload** the **site-import.zip** that is included in the cartridge  
 
 ![Import Upload](image/Import1.png)  
 
 **The Import panel with upload controls**  
 
-- Select **site-import.zip** in the list and click **Import**.  
+- Select **site-import.zip** in the list and click **Import**  
 
-- Click **OK**.  
+- Click **OK**  
 
 ![Import Import](image/Import2.png)  
 
@@ -100,7 +100,7 @@ This step is only required if your site is not called SiteGenesis.
 
 Do the following:  
 
-- Details to follow.  
+- Details to follow  
 
 <a name="EnteringCustomPreferences"/>
 
@@ -108,21 +108,21 @@ Do the following:
 
 Do the following:  
 
-- In the **Business Manager**, click **Merchant Tools** > **Site Preferences**.  
+- In the **Business Manager**, click **Merchant Tools** > **Site Preferences**  
 
-- Select **ContactLabHubConfigs**.  
+- Select **ContactLabHubConfigs**  
 
 ![Custom Site](image/CustomSite.png)  
 
 **The Custom Site Preference Groups panel**  
 
-- Complete the relevant fields.  
+- Complete the relevant fields  
 
 ![Contacthub Config](image/ChubConfig.png)  
 
 **The Contacthub configuration panel**  
 
-- Click **Save**.  
+- Click **Save**  
 
 <a name="CustomCode"/>
 
@@ -142,7 +142,7 @@ Do the following:
 
 ## External interfaces  
 
-The cartridge connects with Contacthub using the Contacthub API.
+The cartridge connects with Contacthub using the Contacthub API
 
 <a name="DataStorage"/>
 
