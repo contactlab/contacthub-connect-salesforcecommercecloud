@@ -21,16 +21,19 @@
 - [Data storage](#DataStorage)  
 
 <a name="Introduction"/>  
+
 # Introduction  
 
 The Contacthub Salesforce Commerce Cloud plug-in enables you to automatically send all of the activities that your customers undertake on the e-commerce platform to Contacthub, without the need to write any code. Installing the plug-in is very simple, while activating it requires just a few minutes. 
 
 <a name="InstallingPlugIn"/>  
+
 ## Installing the Salesforce Commerce Cloud plug-in
 
 To install the plug-in, complete the steps as described below.  
 
 <a name="UploadingCartridge"/>  
+
 ### Uploading the cartridge to your sandbox  
 
 Do the following:  
@@ -46,6 +49,7 @@ Do the following:
 - When prompted, click **OK** to link the cartridge to your sandbox.  
 
 <a name="AddingCartridgeToPath"/>
+
 ### Adding the cartridge to the cartridges path   
 
 Do the following:  
@@ -65,6 +69,7 @@ Do the following:
 - Click **Apply**.  
 
 <a name="ImportingTogether"/>
+
 ### Importing Custom Site Preferences, Services and System Object Extensions together  
 
 Do the following:  
@@ -86,6 +91,7 @@ Do the following:
 **The Import panel with the site-import.zip file**  
 
 <a name="ImportingCustomPreferences"/>
+
 ### Importing Custom Preferences  
 
 **Note:**  
@@ -97,6 +103,7 @@ Do the following:
 - Details to follow.  
 
 <a name="EnteringCustomPreferences"/>
+
 ### Entering Custom Preferences  
 
 Do the following:  
@@ -118,9 +125,11 @@ Do the following:
 - Click **Save**.  
 
 <a name="CustomCode"/>
+
 ## Custom code  
 
 <a name="LoadingComponent"/>
+
 ### Loading the component  
 
 Do the following:  
@@ -130,11 +139,13 @@ Do the following:
     `<isinclude template="contacthub/contacthub" />`  
 
 <a name="ExternalInterfaces"/>
+
 ## External interfaces  
 
 The cartridge connects with Contacthub using the Contacthub API.
 
 <a name="DataStorage"/>
+
 ## Data storage  
 
 All data is stored on the Contacthub servers. The **Workspace ID**, **Node ID**, trusted and untrusted tokens, are stored as custom site preferences within Salesforce Commerce Cloud.
