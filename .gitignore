@@ -1,7 +1,5 @@
 .DS_Store
 node_modules/
 
-cartridge/scripts/init/contactLabHubServiceInit.ds
-
 import/site-import.zip
 no-sync/demandware.json
