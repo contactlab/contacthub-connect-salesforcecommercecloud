@@ -24,7 +24,14 @@
 
 # Introduction  
 
-The Contacthub Salesforce Commerce Cloud plug-in enables you to automatically send all of the activities that your customers undertake on the e-commerce platform to Contacthub, without the need to write any code. Installing the plug-in is very simple, while activating it requires just a few minutes. 
+The Contacthub Salesforce Commerce Cloud plug-in enables you to automatically send all of the activities that your customers undertake on the e-commerce platform to Contacthub, without the need to write any code. The extension automatically collects individual customer information such as:
+- The pages they visit
+- The products they add to, or remove from, their shopping cart
+- The orders they complete
+
+It also ensures potentially valuable information is not lost, by retaining events and actions that are related to customers who have not yet been identified because, for example, they are not logged in, or they have not yet registered. The data is stored by Contacthub, ready to be associated with the customer as soon as they are identified later.
+
+Installing the plug-in is very simple, while activating it requires just a few minutes. 
 
 <a name="InstallingPlugIn"/>  
 
