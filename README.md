@@ -158,7 +158,7 @@ The cartridge connects with Contacthub using the Contacthub API
 
 All data is stored on the Contacthub servers. The **Workspace ID**, **Node ID**, trusted and untrusted tokens, are stored as custom site preferences within Salesforce Commerce Cloud.
 
-<a name="#Salesforceplugin"/> 
+<a name="Salesforceplugin"/> 
 
 ## Which activities does the Salesforce Commerce Cloud plug-in save?
 
