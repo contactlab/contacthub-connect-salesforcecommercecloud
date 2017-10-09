@@ -19,6 +19,7 @@
 - [Loading the component](#LoadingComponent)  
 - [External interfaces](#ExternalInterfaces)  
 - [Data storage](#DataStorage)  
+- [Which activities does the Salesforce Commerce Cloud plug-in save?](#Salesforceplugin)
 
 <a name="Introduction"/>  
 
@@ -156,5 +157,21 @@ The cartridge connects with Contacthub using the Contacthub API
 ## Data storage  
 
 All data is stored on the Contacthub servers. The **Workspace ID**, **Node ID**, trusted and untrusted tokens, are stored as custom site preferences within Salesforce Commerce Cloud.
+
+<a name="#Salesforceplugin"/> 
+
+## Which activities does the Salesforce Commerce Cloud plug-in save?
+
+The following table lists the retained information: 
+
+| Activity        | Description| 
+| :------------- |:-------------| 
+| Viewed product |When the customer views a product |
+| Added product |When the customer adds a product to their shopping cart| 
+| Removed product|When the customer removes a product from their shopping cart|
+| Order completed | When the customer completes an order | 
+| Subscribed to newsletter | When the customer subscribes to your newsletter |
+| Unsubscribed from newsletter | When the customer unsubscribes from your newsletter  
+
 
 ----------
