@@ -7,7 +7,7 @@ let utils = require('~/cartridge/scripts/utils/utils');
 
 
 function configureService(name: String, createcb) {
-    ServiceRegistry.configure(name, {
+    return LocalServiceRegistry.createService(name, {
         createRequest: function(service: HTTPService, args : Object) : String {
             service.addHeader('Authorization', 'Bearer ' + utils.getToken());
             if (service.getRequestMethod() === 'GET') {
@@ -32,38 +32,11 @@ function configureService(name: String, createcb) {
     });
 }
 
-configureService('int_contacthub.http.customers.get',
-    function(service: HTTPService, args : Object) {
-        return JSON.stringify(args);
-    }
-);
-
-configureService('int_contacthub.http.customers.post',
-    function(service: HTTPService, args : Object) {
-        return JSON.stringify(args);
-    }
-);
-
-configureService('int_contacthub.http.customers.patch',
-    function(service: HTTPService, args : Object) {
-        return JSON.stringify(args);
-    }
-);
-
-configureService('int_contacthub.http.customerssessions.post',
-    function(service: HTTPService, args : Object) {
-        return JSON.stringify(args);
-    }
-);
-
-configureService('int_contacthub.http.customerssubscriptions.post',
-    function(service: HTTPService, args : Object) {
-        return JSON.stringify(args);
-    }
-);
-
-configureService('int_contacthub.http.events.post',
-    function(service: HTTPService, args : Object) {
-        return JSON.stringify(args);
-    }
-);
+['customers.get','customers.post','customers.patch','customerssessions.post','customerssubscriptions.post','events.post'].forEach(function(name) {
+    let fullName = 'int_contacthub.http.' + name;
+    module.exports[fullName] = configureService(fullName,
+        function(service: HTTPService, args : Object) {
+            return JSON.stringify(args);
+        }
+    );
+});
