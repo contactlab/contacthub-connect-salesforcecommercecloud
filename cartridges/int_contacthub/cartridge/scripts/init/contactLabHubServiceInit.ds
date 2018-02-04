@@ -32,37 +32,37 @@ function configureService(name: String, createcb) {
     });
 }
 
-configureService('contactlab_hub.http.customers.get',
+configureService('int_contacthub.http.customers.get',
     function(service: HTTPService, args : Object) {
         return JSON.stringify(args);
     }
 );
 
-configureService('contactlab_hub.http.customers.post',
+configureService('int_contacthub.http.customers.post',
     function(service: HTTPService, args : Object) {
         return JSON.stringify(args);
     }
 );
 
-configureService('contactlab_hub.http.customers.patch',
+configureService('int_contacthub.http.customers.patch',
     function(service: HTTPService, args : Object) {
         return JSON.stringify(args);
     }
 );
 
-configureService('contactlab_hub.http.customerssessions.post',
+configureService('int_contacthub.http.customerssessions.post',
     function(service: HTTPService, args : Object) {
         return JSON.stringify(args);
     }
 );
 
-configureService('contactlab_hub.http.customerssubscriptions.post',
+configureService('int_contacthub.http.customerssubscriptions.post',
     function(service: HTTPService, args : Object) {
         return JSON.stringify(args);
     }
 );
 
-configureService('contactlab_hub.http.events.post',
+configureService('int_contacthub.http.events.post',
     function(service: HTTPService, args : Object) {
         return JSON.stringify(args);
     }
