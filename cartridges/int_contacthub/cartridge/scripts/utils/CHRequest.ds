@@ -12,7 +12,7 @@ let services = require('~/cartridge/scripts/contactHubServices');
         let requestData : Object;
 
         self.configureService = function(name: String, resource: String, method: String) {
-            service = services['name'];
+            service = services[name];
             if (!resource) {
             	resource = name.split('.').slice(-2)[0];
             }
