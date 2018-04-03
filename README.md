@@ -50,7 +50,7 @@ Do the following:
 
 - Click **File** > **Import** > **General** > **Existing Projects Into Workspace**
 
-- Browse to the **contacthub_cartridge** folder
+- Browse to the **int_contacthub** folder
 
 - Click **Finish**
 
@@ -68,11 +68,11 @@ Do the following:
 
 - Select the **Settings** tab
 
-- Add **contacthub_cartridge:** to the **Cartridges** field
+- Add **int_contacthub:** to the **Cartridges** field
 
 ![Cartridges Field](image/CartridgesField.png)
 
-**The Cartridges field with contacthub_cartridge: added**
+**The Cartridges field with int_contacthub: added**
 
 - Click **Apply**
 
