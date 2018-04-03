@@ -7,7 +7,7 @@ let utils = require('~/cartridge/scripts/utils/utils');
 
 
 function configureService(name: String, createcb) {
-    ServiceRegistry.configure(name, {
+    return LocalServiceRegistry.createService(name, {
         createRequest: function(service: HTTPService, args : Object) : String {
             service.addHeader('Authorization', 'Bearer ' + utils.getToken());
             if (service.getRequestMethod() === 'GET') {
@@ -31,3 +31,12 @@ function configureService(name: String, createcb) {
         }
     });
 }
+
+['customers.get','customers.post','customers.patch','customerssessions.post','customerssubscriptions.post','events.post'].forEach(function(name) {
+    let fullName = 'int_contacthub.http.' + name;
+    module.exports[fullName] = configureService(fullName,
+        function(service: HTTPService, args : Object) {
+            return JSON.stringify(args);
+        }
+    );
+});

@@ -27,12 +27,9 @@ exports.RegistrationForm = guard.ensure(['post', 'https', 'csrf'], function() {
 
 	BaseAccountController.RegistrationForm();
 
-	let me;
 	if (email != null) {
-		me = ContactHUBCustomer.sendCustomerByEmail(email);
+		ContactHUBCustomer.sendCustomerByEmail(email);
 	} else if (customer != null) {
-		me = ContactHUBCustomer.sendCustomer(customer);
-	} else {
-		log.error('no customer');
+		ContactHUBCustomer.sendCustomer(customer);
 	}
 });

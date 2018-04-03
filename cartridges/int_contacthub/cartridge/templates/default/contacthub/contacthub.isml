@@ -1,5 +1,5 @@
 <isscript>
-    let cl_utils = require('contacthub_cartridge/cartridge/scripts/utils/utils');
+    let cl_utils = require('int_contacthub/cartridge/scripts/utils/utils');
     let chId = customer.getProfile() == null ? null : customer.getProfile().custom.chId;
 </isscript>
 <span id="cl_hub"

@@ -4,6 +4,7 @@ importPackage(dw.svc);
 
 
 let utils = require('~/cartridge/scripts/utils/utils');
+let services = require('~/cartridge/scripts/contactHubServices');
 
     var CHRequest = function() {
         let self = this;
@@ -11,7 +12,7 @@ let utils = require('~/cartridge/scripts/utils/utils');
         let requestData : Object;
 
         self.configureService = function(name: String, resource: String, method: String) {
-            service = ServiceRegistry.get(name);
+            service = services[name];
             if (!resource) {
             	resource = name.split('.').slice(-2)[0];
             }
@@ -22,16 +23,16 @@ let utils = require('~/cartridge/scripts/utils/utils');
             service.setURL(utils.getUrlByMethod(resource));
             return self;
         };
-        
+
         self.getUrl = function() : String {
         	return service.getURL();
         };
-        
+
         self.setUrl = function(url : String) {
         	service.setURL(url);
         	return self;
         };
-        
+
         self.setUrlParameters = function(params : Object) {
         	let url : String = service.getURL();
         	for (let param in params) {
@@ -51,10 +52,10 @@ let utils = require('~/cartridge/scripts/utils/utils');
         	}
             return self;
         };
-        
+
         self.call = function(args) : Result {
         	return service.call(args);
         }
     };
-    
+
     module.exports = CHRequest;

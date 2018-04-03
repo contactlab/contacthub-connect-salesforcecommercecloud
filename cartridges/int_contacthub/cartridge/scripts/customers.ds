@@ -10,10 +10,12 @@ let CustomerModel = require(utils.getBaseCartridge() + '/cartridge/scripts/model
 
 function sendCustomerByEmail(email : String): dw.svc.Result {
 	let customer : dw.customer.Customer = CustomerModel.retrieveCustomerByLogin(email);
-	return sendCustomer(customer);
+	return customer ? sendCustomer(customer) : false;
 }
 
 function sendCustomer(customer : dw.customer.Customer) : dw.svc.Result {
+	if (!customer) return null;
+
 	let postCustomer = buildPostCustomerFromProfile(customer.getProfile());
 	let result : dw.svc.Result = Hub.postCustomer(postCustomer);
 	utils.getLogger().debug(
